@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Recommender System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #F5F7FA;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .title {
+            background: linear-gradient(90deg, rgba(255, 77, 77, 1) 0%, rgba(0, 184, 255, 1) 100%);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .search-box {
+            margin-top: 30px;
+        }
+
+        .btn-recommend {
+            background: linear-gradient(90deg, rgba(255, 77, 77, 1) 0%, rgba(0, 184, 255, 1) 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .recommendations {
+            margin-top: 30px;
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .recommendation-item img {
+            width: 40px;
+            margin-right: 15px;
+        }
+
+        .recommendation-item .medicine-icon {
+            width: 40px;
+            margin-right: 15px;
+        }
+
+        .recommendation-item a {
+            color: #007BFF;
+            border: 2px solid #007BFF;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .recommendation-item a:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">
+            MEDICINE RECOMMENDER SYSTEM
+        </div>
+        <div class="search-box">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="medicine">Select a medicine for recommendations:</label>
+                    <input type="text" class="form-control" id="medicine" name="medicine" list="medicines"
+                        placeholder="Enter the medicine">
+                    <datalist id="medicines">
+                        {% for medicine in medicines_list %}
+                        <option value="{{ medicine }}">
+                            {% endfor %}
+                    </datalist>
+                </div>
+                <button type="submit" class="btn btn-recommend btn-block">RECOMMEND MEDICINE</button>
+            </form>
+        </div>
+        <div class="recommendations">
+            {% if selected_medicine_name %}
+            <h5>Recommended Medicines</h5>
+            <div class="recommendation-list">
+                {% for rec, url in recommendations %}
+                <div class="recommendation-item">
+                    <div class="d-flex align-items-center">
+                        <img src="https://www.iconpacks.net/icons/2/free-medicine-icon-3193-thumb.png" alt="medicine"
+                            class="medicine-icon">
+                        <span>{{ loop.index }}. {{ rec }}</span>
+                    </div>
+                    <a href="{{ url }}" target="_blank">View Details</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
